@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>邪不压郑 - 个人博客</title><meta name="author" content="邪不压郑"><meta name="copyright" content="邪不压郑"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="学会走之前 要先跑起来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邪不压郑">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="邪不压郑">
+<meta property="og:description" content="学会走之前 要先跑起来">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://43.140.204.128/images/common/avatar-img.webp">
+<meta property="article:author" content="邪不压郑">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://43.140.204.128/images/common/avatar-img.webp"><script type="application/ld+json"></script><link rel="shortcut icon" href="http://43.140.204.128/images/common/logo.webp"><link rel="canonical" href="http://example.com/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '邪不压郑',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="http://43.140.204.128/images/common/avatar-img.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url(http://43.140.204.128/images/common/common-0023.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">邪不压郑</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">邪不压郑</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/kluhten" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mahonecia@live.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/11/11/Maven%E6%89%8B%E8%AE%B0/" title="Maven手记"><img class="post-bg" src="http://43.140.204.128/images/common/common-0006.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Maven手记"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Maven%E6%89%8B%E8%AE%B0/" title="Maven手记">Maven手记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:59.079Z" title="发表于 2025-11-11 07:59:59">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Maven/">Maven</a></span></div><div class="content"> 几个好用的 maven 镜像12345678910111213141516171819202122232425262728293031&lt;!-- 阿里云 --&gt;&lt;mirror&gt;    &lt;id&gt;nexus-aliyun&lt;/id&gt;    &lt;name&gt;Nexus aliyun&lt;/name&gt;    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;&lt;/mirror&gt;&lt;!-- oschina --&gt;&lt;mirror&gt;    &lt;id&gt;CN&lt;/id&gt;    &lt;name&gt;OSChina Central&lt;/name&gt;    &lt;url&gt;http://maven.oschina.net/content/groups/public/&lt;/url&gt;...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/11/11/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令"><img class="post-bg" src="http://43.140.204.128/images/common/common-0010.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux常用命令"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令">Linux常用命令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:49.593Z" title="发表于 2025-11-11 07:59:49">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a></span></div><div class="content"> systemctl   任务 指令    使某服务自动启动 systemctl enable 服务名   使某服务不自动启动 systemctl disable 服务名   检查服务状态（详细） systemctl status 服务名（服务详细信息）   检查服务状态 systemctl is-active 服务名 （仅显现是否Active）   显示所有已启动服务 systemctl list-units –type&#x3D;service   启动某服务 systemctl start 服务名   停止某服务 systemctl stop 服务名   重启某服务 systemctl restart 服务名    </div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/11/11/Linux%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/" title="Linux操作手册"><img class="post-bg" src="http://43.140.204.128/images/common/common-0018.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux操作手册"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Linux%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/" title="Linux操作手册">Linux操作手册</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:49.580Z" title="发表于 2025-11-11 07:59:49">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Linux/">Linux</a></span></div><div class="content"> 防火墙随系统启动 1systemctl enable firewalld  启动 1systemctl start firewalld  查看状态 1systemctl status firewalld  关闭 1systemctl stop firewalld  开放端口 1firewall-cmd --add-port=端口号/tcp --permanent  配置完成之后重启防火墙 1firewall-cmd --reload  查看所有开放端口 1firewall-cmd --list-all   </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/11/11/Select2%E6%A1%86%E6%9E%B6/" title="Select2框架"><img class="post-bg" src="http://43.140.204.128/images/common/common-0011.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Select2框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Select2%E6%A1%86%E6%9E%B6/" title="Select2框架">Select2框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:31.878Z" title="发表于 2025-11-11 07:59:31">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span></div><div class="content"> 默认让select2选中某个值1$(&quot;#id&quot;).select2().select2(&quot;val&quot;,&quot;需要被选中的值&quot;);   </div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/11/11/Node-Red/" title="Node-Red"><img class="post-bg" src="http://43.140.204.128/images/common/common-0020.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Node-Red"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Node-Red/" title="Node-Red">Node-Red</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:31.865Z" title="发表于 2025-11-11 07:59:31">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span></div><div class="content"> Node-Red简介Node-RED：物联网的基于流式编程的编程工具 ​		node-red是一种编程工具，用全新的、有趣的方式将硬件设备、api和在线服务连接起来。它提供了一个基于浏览器的编辑器，它可以很容易地使用工具面板中各种各样的节点来连接流，这些节点可以通过拖拽的方式进行部署。 基于浏览器的流编辑  ​		node-red提供了一个基于浏览器的流编辑器，该编辑器可以很容易地使用工具面板中的各种节点来连接流。然后，这些节点可以通过拖拽的方式进行部署。可以使用组件中的文本编辑器在编辑器中创建JavaScript函数。内置的库允许您保存有用的函数、模板或用于重用的流。 建立在node . js基础之上  ​		在node.js上构建的轻量级运行时，充分利用其事件驱动的非阻塞模型。这使得它很适合在低成本硬件上运行，比如树莓派和云计算。在Node的包存储库中有超过22.5万个模块，很容易扩展面板节点的范围以添加新的功能。 社区发展  ​		在Node-Red中创建的流是使用JSON存储的，它可以很容易地导入和导出，以便与他人共享。在线流库允许您与世界共享您的最佳流。 </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/11/11/JavaScript/" title="JavaScript"><img class="post-bg" src="http://43.140.204.128/images/common/common-0010.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/JavaScript/" title="JavaScript">JavaScript</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:31.845Z" title="发表于 2025-11-11 07:59:31">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span></div><div class="content"> Js方法文本拼接​		很多时候，前端处理数据时，需要通过AJAX来完成，而如果返回的结果需要调用其他JS方法的时候，如果写在字符串中会失效，可以这样写讲JS方法转译：\”方法名();\”，例如： 1234567891011function getCourseGr(param)&#123;    $.post(&quot;&lt;%=path%&gt;/test/getList&quot;,&#123;        &quot;param&quot;:param    &#125;,function(result)&#123;        var html = &quot;&quot;;        for(var index in result)&#123;            html += &quot;&lt;input type=&#x27;button&#x27; onclick=\&quot;test(&#x27;&quot;+result[index].id+&quot;&#x27;);\&quot;&gt;&quot;;        &#125;    ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/11/11/Ionic/" title="Ionic"><img class="post-bg" src="http://43.140.204.128/images/common/common-0018.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ionic"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Ionic/" title="Ionic">Ionic</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:31.812Z" title="发表于 2025-11-11 07:59:31">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></span></div><div class="content"> 初识Ionic简介​		Ionic是一个用来开发混合手机应用的，开源的，免费的代码库。可以优化html、css和js的性能，构建高效的应用程序，而且还可以用于构建Sass和AngularJS的优化。同时还是一个专注于用WEB开发技术，基于HTML5创建类似于手机平台原生应用的一个开发框架。绑定了AngularJS和Sass。这个框架的目的是从web的角度开发手机应用，基于PhoneGap的编译平台，可以实现编译成各个平台的应用程序。  ionic的开发添加android和ios环境。 ionic提供很多css组件和javascript UI库。 ionic可以支持定制android和ios的插件，也支持服务端REST的敏捷开发。  特点 ionic 基于Angular语法，简单易学。 ionic 是一个轻量级框架。 ionic 完美的融合下一代移动框架，支持 Angularjs 的特性， MVVM ，代码易维护。 ionic 提供了漂亮的设计，通过 SASS 构建应用程序，它提供了很多 UI 组件来帮助开发者开发强大的应用。 ionic 专注原生，让你看不出混合应用和原生的区别...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/11/11/Docker%E5%9F%BA%E7%A1%80%E7%AF%87/" title="Docker基础篇"><img class="post-bg" src="http://43.140.204.128/images/common/common-0017.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker基础篇"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Docker%E5%9F%BA%E7%A1%80%E7%AF%87/" title="Docker基础篇">Docker基础篇</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:22.505Z" title="发表于 2025-11-11 07:59:22">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Docker/">Docker</a></span></div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/11/11/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" title="正向代理与反向代理"><img class="post-bg" src="http://43.140.204.128/images/common/common-0011.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="正向代理与反向代理"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" title="正向代理与反向代理">正向代理与反向代理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:12.255Z" title="发表于 2025-11-11 07:59:12">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/HttpAbout/">HttpAbout</a></span></div><div class="content"> 正向代理​		正向代理其实相当于请求的中继，比如说，如果某个网站国内无法访问，也就是被墙了，我可以选择两种方式，一个是配置代理服务器，第二种就是VPN，其实两种技术原理差不太多，如果说我自己访问不到这个网站，而这时可以通过一台可以访问到这个网站的服务器，也就是代理服务器，来进行访问，这台代理服务器，分析我们请求的信息，然后去对应的要去的网站上将内容取回来发给我，这样我就能读到想要访问的网站上的内容了，通过一下图片，可以很清晰的看出其原理：   反向代理​		反向代理比正向代理更加透明，客户端并不知道访问的是代理服务器，当客户端请求一个网址的时候，会经过反向代理服务器，而这台反向代理服务器，会根据客户端的请求，将请求转发到内网服务器中，内网服务器处理请求并返回结果到反向代理服务器上，通过反向代理服务器，将结果最终返回到客户端，详情如图：  简单来说，正向代理代理的是客户端，而反向代理代理的是服务器  </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/11/11/Nginx/" title="Nginx"><img class="post-bg" src="http://43.140.204.128/images/common/common-0019.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nginx"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/11/11/Nginx/" title="Nginx">Nginx</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-10T23:59:12.242Z" title="发表于 2025-11-11 07:59:12">2025-11-11</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/HttpAbout/">HttpAbout</a></span></div><div class="content"> Nginx 简介Nginx 概述​		Nginx (“engine x”) 是一个高性能的 HTTP 和反向代理服务器,特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。 Nginx 作为 web 服务器​		Nginx 可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如 perl、php等。但是不支持 java。Java 程序只能通过与 tomcat 配合完成。Nginx 专为性能优化而开发，性能是其最重要的考量,实现上非常注重效率 ，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。 正向代理​		Nginx 不仅可以做反向代理，实现负载均衡。还能用作正向代理来进行上网等功能。正向代理：如果把局域网外的 Internet 想象成一个巨大的资源库，则局域网中的客户端要访问 Internet，则需要通过代理服务器来访问，这种代理服务就称为正向代理。  反向代理​		反向代理，其实客户端对代理是无感知的，因为客户端不...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="http://43.140.204.128/images/common/avatar-img.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">邪不压郑</div><div class="author-info-description">行到水穷处 坐看云起时</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kluhten" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mahonecia@live.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的网站建成啦，欢迎光临~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/JVM/" title="JVM"><img src="http://43.140.204.128/images/common/common-0010.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM"/></a><div class="content"><a class="title" href="/2025/11/11/JVM/" title="JVM">JVM</a><time datetime="2025-11-11T01:45:10.396Z" title="发表于 2025-11-11 09:45:10">2025-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/Lombok/" title="Lombok"><img src="http://43.140.204.128/images/common/common-0018.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lombok"/></a><div class="content"><a class="title" href="/2025/11/11/Lombok/" title="Lombok">Lombok</a><time datetime="2025-11-11T00:01:15.521Z" title="发表于 2025-11-11 08:01:15">2025-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/Devtools/" title="Devtools"><img src="http://43.140.204.128/images/common/common-0019.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Devtools"/></a><div class="content"><a class="title" href="/2025/11/11/Devtools/" title="Devtools">Devtools</a><time datetime="2025-11-11T00:01:15.503Z" title="发表于 2025-11-11 08:01:15">2025-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/VMware%20Workstation/" title="VMware Workstation"><img src="http://43.140.204.128/images/common/common-0025.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VMware Workstation"/></a><div class="content"><a class="title" href="/2025/11/11/VMware%20Workstation/" title="VMware Workstation">VMware Workstation</a><time datetime="2025-11-11T00:01:07.634Z" title="发表于 2025-11-11 08:01:07">2025-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/Visual%20Studio%20Code/" title="Visual Studio Code"><img src="http://43.140.204.128/images/common/common-0011.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Visual Studio Code"/></a><div class="content"><a class="title" href="/2025/11/11/Visual%20Studio%20Code/" title="Visual Studio Code">Visual Studio Code</a><time datetime="2025-11-11T00:01:07.618Z" title="发表于 2025-11-11 08:01:07">2025-11-11</time></div></div></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">33</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-11T01:48:57.193Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(http://43.140.204.128/images/common/common-0023.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 邪不压郑</span></div><div class="footer_custom_text">备案号：黑ICP备2025046207号-1</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["学会走之前","要先跑起来"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["学会走之前","要先跑起来"])
+}
+typedJSFn.run(subtitleType)</script></div><div class="aplayer no-destroy" data-id="17401878335" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" listfolded="false" data-autoplay="true"> </div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.1"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
