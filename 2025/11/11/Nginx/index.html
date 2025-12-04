@@ -1,0 +1,716 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Nginx | 邪不压郑</title><meta name="author" content="邪不压郑"><meta name="copyright" content="邪不压郑"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Nginx 简介Nginx 概述​		Nginx (“engine x”) 是一个高性能的 HTTP 和反向代理服务器,特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。 Nginx 作为 web 服务器​		Nginx 可以作为静态页面的 web 服务器，同时还支持 CGI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx">
+<meta property="og:url" content="http://example.com/2025/11/11/Nginx/index.html">
+<meta property="og:site_name" content="邪不压郑">
+<meta property="og:description" content="Nginx 简介Nginx 概述​		Nginx (“engine x”) 是一个高性能的 HTTP 和反向代理服务器,特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。 Nginx 作为 web 服务器​		Nginx 可以作为静态页面的 web 服务器，同时还支持 CGI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://kluhten.com/images/common/common-0019.webp">
+<meta property="article:published_time" content="2025-11-10T23:59:12.242Z">
+<meta property="article:modified_time" content="2025-11-12T00:16:04.225Z">
+<meta property="article:author" content="邪不压郑">
+<meta property="article:tag" content="HttpAbout">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kluhten.com/images/common/common-0019.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Nginx",
+  "url": "http://example.com/2025/11/11/Nginx/",
+  "image": "http://kluhten.com/images/common/common-0019.webp",
+  "datePublished": "2025-11-10T23:59:12.242Z",
+  "dateModified": "2025-11-12T00:16:04.225Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "邪不压郑",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="http://kluhten.com/images/common/favicon.webp"><link rel="canonical" href="http://example.com/2025/11/11/Nginx/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nginx',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="http://kluhten.com/images/common/avatar-img.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(http://kluhten.com/images/common/common-0019.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">邪不压郑</span></a><a class="nav-page-title" href="/"><span class="site-name">Nginx</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Nginx</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-10T23:59:12.242Z" title="发表于 2025-11-11 07:59:12">2025-11-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-12T00:16:04.225Z" title="更新于 2025-11-12 08:16:04">2025-11-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/11/11/Nginx/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+<h1 id="Nginx-简介"><a href="#Nginx-简介" class="headerlink" title="Nginx 简介"></a><strong>Nginx 简介</strong></h1><h2 id="Nginx-概述"><a href="#Nginx-概述" class="headerlink" title="Nginx 概述"></a>Nginx 概述</h2><p>​		Nginx (“engine x”) 是一个高性能的 HTTP 和反向代理服务器,特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p>
+<h2 id="Nginx-作为-web-服务器"><a href="#Nginx-作为-web-服务器" class="headerlink" title="Nginx 作为 web 服务器"></a>Nginx 作为 web 服务器</h2><p>​		Nginx 可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如 perl、php等。但是不支持 java。Java 程序只能通过与 tomcat 配合完成。Nginx 专为性能优化而开发，性能是其最重要的考量,实现上非常注重效率 ，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。</p>
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>​		Nginx 不仅可以做反向代理，实现负载均衡。还能用作正向代理来进行上网等功能。正向代理：如果把局域网外的 Internet 想象成一个巨大的资源库，则局域网中的客户端要访问 Internet，则需要通过代理服务器来访问，这种代理服务就称为正向代理。</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428094733474.png" alt="image-20200428094733474"></p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>​		反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，在返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器 IP 与 端口。</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428094922247.png" alt="image-20200428094922247"></p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>​		客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回给客户端。 这种架构模式对于早期的系统相对单一，并发请求相对较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增长，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃。很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况呢？</p>
+<p>​		我们首先想到的可能是升级服务器的配置，比如提高 CPU 执行频率，加大内存等提高机器的物理性能来解决此问题，但是我们知道摩尔定律的日益失效，硬件的性能提升已经不能满足日益提升的需求了。最明显的一个例子，天猫双十一当天，某个热销商品的瞬时访问量是极其庞大的，那么类似上面的系统架构，将机器都增加到现有的顶级物理配置，都是不能够满足需求的。那么怎么办呢？</p>
+<p>​		上面的分析我们去掉了增加服务器物理配置来解决问题的办法，也就是说纵向解决问题的办法行不通了，那么横向增加服务器的数量呢？这时候集群的概念产生了，单个服务器解决不了，我们增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上的情况改为将请求分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的负载均衡。</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428100758053.png" alt="image-20200428100758053"></p>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p>​		为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度。降低原来单个服务器的压力。</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428100916430.png" alt="image-20200428100916430"></p>
+<hr>
+<h1 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a><strong>Nginx 安装</strong></h1><h2 id="下载nginx"><a href="#下载nginx" class="headerlink" title="下载nginx"></a>下载nginx</h2><p>进入 nginx 官网，下载 <a target="_blank" rel="noopener" href="http://nginx.org/">http://nginx.org/</a></p>
+<p><img src="http://kluhten.com/images/assets/image-20200428103332535.png" alt="image-20200428103332535"></p>
+<p><img src="http://kluhten.com/images/assets/image-20200428103539053.png" alt="image-20200428103539053"></p>
+<p><img src="http://kluhten.com/images/assets/image-20200428103830921.png" alt="image-20200428103830921"></p>
+<h2 id="安装nginx依赖"><a href="#安装nginx依赖" class="headerlink" title="安装nginx依赖"></a>安装nginx依赖</h2><p>在安装nginx前首先要确认系统中安装了<strong>gcc、pcre-devel、zlib-devel、openssl-devel</strong></p>
+<p><strong>linux下检查是否安装过某软件包</strong></p>
+<p>rpm包安装的，可以用 rpm -qa 看到，如果要查找某软件包是否安装，用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep &quot;软件或者包的名字&quot;</span><br></pre></td></tr></table></figure>
+
+<p>以deb包安装的，可以用 dpkg -l 看到。如果是查找指定软件包，用 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l | grep &quot;软件或者包的名字&quot;</span><br></pre></td></tr></table></figure>
+
+<p>yum方法安装的，可以用 yum list installed 查找，如果是查找指定包，用 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed | grep &quot;软件名或者包名&quot;</span><br></pre></td></tr></table></figure>
+
+<p>举例：查看是否安装了gcc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed | grep &quot;gcc&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428105529733.png" alt="image-20200428105529733"></p>
+<p>这里可以确认我们没有安装gcc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428105820620.png" alt="image-20200428105820620"></p>
+<p>再次执行查找命令</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428105902079.png" alt="image-20200428105902079"></p>
+<p>安装命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc pcre-devel zlib-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428111357832.png" alt="image-20200428111357832"></p>
+<p>将下载好的nginx软件包，移动到&#x2F;usr&#x2F;local&#x2F;下。</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428110357414.png" alt="image-20200428110357414"></p>
+<p>解压</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.17.10.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>进入nginx目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.17.10</span><br></pre></td></tr></table></figure>
+
+<p>配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/work/nginx</span><br></pre></td></tr></table></figure>
+
+<p>make</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装成功之后，在 &#x2F;usr&#x2F;local 文件夹下，会有一个 nginx 文件夹</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428111815565.png" alt="image-20200428111815565"></p>
+<p>在这个文件夹中的 sbin 目录下，会有一个 nginx 启动命令</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428112008042.png" alt="image-20200428112008042"></p>
+<p>删除源码和压缩包（如果是make安装，源码最好放在 &#x2F;usr&#x2F;local&#x2F;src 下面）</p>
+<h2 id="测试启动"><a href="#测试启动" class="headerlink" title="测试启动"></a>测试启动</h2><p>在 &#x2F;sbin 目录下 运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428112849841.png" alt="image-20200428112849841"></p>
+<p>查看进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|grep nginx</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428112950202.png" alt="image-20200428112950202"></p>
+<p>查看 nginx 相应配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200428131911910.png" alt="image-20200428131911910"></p>
+<p>此时的服务已经启动，并且在localhost:80这个地址上，但是由于linux防火墙设置，这个端口访问不到</p>
+<h2 id="设置防火墙开放端口"><a href="#设置防火墙开放端口" class="headerlink" title="设置防火墙开放端口"></a>设置防火墙开放端口</h2><p>查看开放的端口号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --list-all</span><br></pre></td></tr></table></figure>
+
+<p>设置开放的端口号（这里设置的是80端口）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-service=http --permanent</span><br><span class="line">sudo firewall-cmd --add-port=80/tcp --permanent</span><br></pre></td></tr></table></figure>
+
+<p>重启防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>再访问localhost:80</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428132136070.png" alt="image-20200428132136070"></p>
+<hr>
+<h1 id="Nginx-常用的命令和配置文件"><a href="#Nginx-常用的命令和配置文件" class="headerlink" title="Nginx 常用的命令和配置文件"></a><strong>Nginx 常用的命令和配置文件</strong></h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>（由于没有配置环境变量，所有的命令都需要在 &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin 目录下执行 ）</p>
+<p>启动命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure>
+
+<p>关闭命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s stop</span><br></pre></td></tr></table></figure>
+
+<p>重新加载命令（修改 nginx.conf 配置文件之后，可以使用此命令，重启 nginx）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>​		nginx 安装目录下，其默认的配置文件都放在这个目录的 conf 目录下，而主配置文件 nginx.conf 也在其中，后续对 nginx 的使用基本上都是对此配置文件进行相应的修改。	</p>
+<p>配置文件中有很多#， 开头的表示注释内容，我们去掉所有以 # 开头的段落，精简之后的内容如下：</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428153010066.png" alt="image-20200428153010066"></p>
+<p>根据上述文件，我们可以很明显的将 nginx.conf 配置文件分为三部分：</p>
+<p><strong>第一部分：全局块</strong> </p>
+<p>​		从配置文件开始到 events 块之间的内容，主要会设置一些影响 nginx 服务器整体运行的配置指令，主要包括配置运行 Nginx 服务器的用户（组）、允许生成的 worker process 数，进程 PID 存放路径、日志存放路径和类型以及配置文件的引入等。</p>
+<p> 比如上面第一行配置的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br></pre></td></tr></table></figure>
+
+<p>​		这是 Nginx 服务器并发处理服务的关键配置，worker_processes 值越大，可以支持的并发处理量也越多，但是会受到硬件、软件等设备的制约。</p>
+<p><strong>第二部分：events 块</strong> </p>
+<p>比如上面的配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​		events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，常用的设置包括是否开启对多 work process 下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个 word process 可以同时支持的最大连接数等。</p>
+<p>​		上述例子就表示每个 work process 支持的最大连接数为 1024。 这部分的配置对 Nginx 的性能影响较大，在实际中应该灵活配置。</p>
+<p><strong>第三部分：http 块</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">            server_name  localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这算是 Nginx 服务器配置中最频繁的部分，代理、缓存和日志定义等绝大多数功能和第三方模块的配置都在这里。</p>
+<p>需要注意的是：http 块也可以包括 <strong>http 全局块</strong>、<strong>server 块</strong>。</p>
+<p><strong>① http 全局块</strong></p>
+<p>http 全局块配置的指令包括文件引入、MIME-TYPE 定义、日志自定义、连接超时时间、单链接请求数上限等。</p>
+<p><strong>② server 块</strong></p>
+<p>​		这块和虚拟主机有密切关系，虚拟主机从用户角度看，和一台独立的硬件主机是完全一样的，该技术的产生是为了节省互联网服务器硬件成本。每个 http 块可以包括多个 server 块，而每个 server 块就相当于一个虚拟主机。而每个 server 块也分为全局 server 块，以及可以同时包含多个 locaton 块。</p>
+<ul>
+<li><strong>全局 server 块</strong></li>
+</ul>
+<p>最常见的配置是本虚拟机主机的监听配置和本虚拟主机的名称或 IP 配置。</p>
+<ul>
+<li><strong>location 块</strong></li>
+</ul>
+<p>​		一个 server 块可以配置多个 location 块。这块的主要作用是基于 Nginx 服务器接收到的请求字符串（例如server_name&#x2F;uri-string），对虚拟主机名称（也可以是 IP 别名）之外的字符串（例如 前面的 &#x2F;uri-string）进行匹配，对特定的请求进行处理。地址定向、数据缓存和应答控制等功能，还有许多第三方模块的配置也在这里进行。</p>
+<hr>
+<h1 id="Nginx-配置实例反向代理"><a href="#Nginx-配置实例反向代理" class="headerlink" title="Nginx 配置实例反向代理"></a><strong>Nginx 配置实例反向代理</strong></h1><h2 id="反向代理实例一"><a href="#反向代理实例一" class="headerlink" title="反向代理实例一"></a>反向代理实例一</h2><p><strong>实现效果</strong>：打开浏览器，在浏览器地址栏输入 <a target="_blank" rel="noopener" href="http://www.mogon.com/">www.mogon.com</a> 直接跳转到 linux 系统 tomcat 主页面</p>
+<p><strong>准备工作</strong>	</p>
+<ul>
+<li>在 linux 系统上安装一个 tomcat 并使用端口 8080 (本地 linux 服务器IP为 10.0.7.210)</li>
+<li>启动一个 tomcat，在 windows 系统中，浏览器地址栏输入 10.0.7.210:8080，出现如下界面：</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200428155821622.png" alt="image-20200428155821622"></p>
+<p>（这里是搭在公司服务器上，所以ip是10.0.7.210，而且8080端口也需要linux防火墙进行开放，具体方法同上，这里分别开了8080 8081 8082三个端口）</p>
+<p><img src="http://kluhten.com/images/assets/image-20200428160009065.png" alt="image-20200428160009065"></p>
+<ul>
+<li>通过修改本地 host 文件，将 <a target="_blank" rel="noopener" href="http://www.local-nginx.com/">www.local-nginx.com</a> 映射到 10.0.7.210，如下：</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200428161823600.png" alt="image-20200428161823600"></p>
+<ul>
+<li>配置完成之后，我们便可以通过 <a target="_blank" rel="noopener" href="http://www.local-nginx.com:8080/">www.local-nginx.com:8080</a> 访问到第一步出现的 Tomcat 初始界面。</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506092057440.png" alt="image-20200506092057440"></p>
+<ul>
+<li>现在我们要得到的结果是，访问 linux 中 nginx 的 80 端口，再通过 nginx 转发给 8080 端口，需要配置 nginx.conf，并重启 nginx 服务</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506095042508.png" alt="image-20200506095042508"></p>
+<p>（注意：此处 server_name 是 nginx 所在服务器的IP地址，如果该服务器申请了域名，也可以填域名，proxy_pass 为转发的地址和端口，只要是和服务器在同一个网段，或者用服务器能ping通的地址，都可以，此处由于 tomcat 搭在了 nginx 所在的服务器上，所以使用 127.0.0.1:8080，还需要注意的一点是，proxy_pass 前面必须有 http:&#x2F;&#x2F; ）</p>
+<ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://www.local-nginx.com/">www.local-nginx.com</a> 得到结果</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506095817732.png" alt="image-20200506095817732"></p>
+<p>​		<strong>心得：此处需要说明的是，其实服务器的8080 8081 8082这3个端口，不需要对外暴露，nginx 就是解决类问题的，只要将nginx所在的端口暴露出来就可以，想要访问其他端口，就可以通过配置 nginx.conf，来将请求转发给其他端口，这就是简单的反向代理，而这里暴露8080 8081 8082是为了演示实验的请求走向</strong></p>
+<h2 id="反向代理实例二"><a href="#反向代理实例二" class="headerlink" title="反向代理实例二"></a>反向代理实例二</h2><ul>
+<li><p>此时我们只启动了1个 tomcat 服务，现在我们把3个 tomcat 服务全都开启，首先需要配置 tomcat 端口</p>
+<p><img src="http://kluhten.com/images/assets/image-20200506101104690.png" alt="image-20200506101104690"></p>
+</li>
+</ul>
+<p>（注意：这里是 tomcat-002 的端口，tomcat-003配置成8007 8082 8011）</p>
+<p><img src="http://kluhten.com/images/assets/image-20200506103231431.png" alt="image-20200506103231431"></p>
+<p>（此时3个 tomcat 都能够正常启动，说明配置文件修改没问题）</p>
+<ul>
+<li>在 tomcat-001 的 webapps 下创建文件夹 001 并创建一个 index.html 内容如下</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506145930928.png" alt="image-20200506145930928"></p>
+<ul>
+<li>同样在 tomcat-002 的 webapps 下创建文件夹 002 并创建一个 index.html 内容为</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Tomcat-002&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（tomcat-003 的也一样）</p>
+<ul>
+<li>修改 nginx.conf 配置文件</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506150249958.png" alt="image-20200506150249958"></p>
+<ul>
+<li>重启 tomcat 服务和 nginx 服务</li>
+<li>在 windows 浏览器中分别输入</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://www.local-nginx.com/001/index.html</span><br><span class="line">http://www.local-nginx.com/002/index.html</span><br><span class="line">http://www.local-nginx.com/003/index.html</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>显示结果如下</p>
+<p><img src="http://kluhten.com/images/assets/image-20200506150500010.png" alt="image-20200506150500010"></p>
+</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200506150531095.png" alt="image-20200506150531095"></p>
+<p><img src="http://kluhten.com/images/assets/image-20200506150549789.png" alt="image-20200506150549789"></p>
+<p>这就是根据访问路径不同，转发给不同的端口</p>
+<p><strong>location 指令说明</strong> （该指令用于匹配 URL）</p>
+<p>语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">location [ = | ~ | ~* | ^~ ] uri &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>&#x3D; 用于不含正则表达式的 uri 前，要求请求字符串与 uri 严格匹配，如果匹配成功，就停止继续向下搜索并立即处理该请求。</li>
+<li>~ 用于表示 uri 包含正则表达式，并且区分大小写。</li>
+<li>~* 用于表示 uri 包含正则表达式，并且不区分大小写。</li>
+<li>^~ 用于不含正则表达式的 uri 前，要求 Nginx 服务器找到标识 uri 和请求字符串匹配度最高的 location 后，立即使用此 location 处理请求，而不再使用 location 块中的正则 uri 和请求字符串做匹配。</li>
+</ol>
+<p> 注意：如果 uri 包含正则表达式，则必须要有 ~ 或者 ~* 标识。</p>
+<hr>
+<h1 id="Nginx-配置实例负载均衡"><a href="#Nginx-配置实例负载均衡" class="headerlink" title="Nginx 配置实例负载均衡"></a><strong>Nginx 配置实例负载均衡</strong></h1><h2 id="负载均衡实例"><a href="#负载均衡实例" class="headerlink" title="负载均衡实例"></a>负载均衡实例</h2><p><strong>实现效果：配置负载均衡</strong></p>
+<p><strong>准备工作：分别在3个 tomcat 下的 webapps 中创建相同的文件夹lb，此文件夹下分别创建 index.html 内容分别为 ：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Tomcat-001&lt;/h1&gt;</span><br><span class="line">&lt;h1&gt;Tomcat-002&lt;/h1&gt;</span><br><span class="line">&lt;h1&gt;Tomcat-003&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://kluhten.com/images/assets/image-20200509090623498.png" alt="image-20200509090623498"></p>
+<ul>
+<li><p>在 nginx 的配置文件中，进行负载均衡配置</p>
+<p>​		<img src="http://kluhten.com/images/assets/image-20200509100745024.png" alt="image-20200509100745024"></p>
+</li>
+</ul>
+<p>（选用随机访问的策略）</p>
+<ul>
+<li>重启 nginx 和 tomcat 后，在浏览器中访问 <a target="_blank" rel="noopener" href="http://www.local-nginx.com/lb/index.html">http://www.local-nginx.com/lb/index.html</a> 会随机分配到3个 tomcat 中，这里先后测试 6 次访问结果，如下：</li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200509101403400.png" alt="image-20200509101403400"></p>
+<h2 id="负载均衡策略"><a href="#负载均衡策略" class="headerlink" title="负载均衡策略"></a>负载均衡策略</h2><p>​		以上就是最基本的负载均衡实例，但这不足以满足实际需求；目前Nginx服务器的upstream模块支持6种方式的分配：</p>
+<table>
+<thead>
+<tr>
+<th align="left">轮询</th>
+<th align="left">默认方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">weight</td>
+<td align="left">权重方式</td>
+</tr>
+<tr>
+<td align="left">ip_hash</td>
+<td align="left">依据ip分配方式</td>
+</tr>
+<tr>
+<td align="left">least_conn</td>
+<td align="left">最少连接方式</td>
+</tr>
+<tr>
+<td align="left">fair（第三方）</td>
+<td align="left">响应时间方式</td>
+</tr>
+<tr>
+<td align="left">url_hash（第三方）</td>
+<td align="left">依据URL分配方式</td>
+</tr>
+<tr>
+<td align="left">random</td>
+<td align="left">随机分配方式</td>
+</tr>
+</tbody></table>
+<h3 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a><strong>轮询</strong></h3><p>​		最基本的配置方法，上面的例子就是轮询的方式，它是 upstream 模块默认的负载均衡默认策略。每个请求会按时间顺序逐一分配到不同的后端服务器。</p>
+<p>　　有如下参数：</p>
+<table>
+<thead>
+<tr>
+<th>fail_timeout</th>
+<th>与max_fails结合使用。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>max_fails</td>
+<td>设置在fail_timeout参数设置的时间内最大失败次数，如果在这个时间内，所有针对该服务器的请求都失败了，那么认为该服务器会被认为是停机了，</td>
+</tr>
+<tr>
+<td>fail_time</td>
+<td>服务器会被认为停机的时间长度,默认为10s。</td>
+</tr>
+<tr>
+<td>backup</td>
+<td>标记该服务器为备用服务器。当主服务器停止时，请求会被发送到它这里。</td>
+</tr>
+<tr>
+<td>down</td>
+<td>标记服务器永久停机了。</td>
+</tr>
+</tbody></table>
+<p>　　注意：</p>
+<ul>
+<li>在轮询中，如果服务器down掉了，会自动剔除该服务器。</li>
+<li>缺省配置就是轮询策略。</li>
+<li>此策略适合服务器配置相当，无状态且短平快的服务使用。</li>
+</ul>
+<h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>　　权重方式，在轮询策略的基础上指定轮询的几率。例子如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream mogonserver &#123;</span><br><span class="line">    server localhost:8080   weight=2;</span><br><span class="line">    server localhost:8081   backup;</span><br><span class="line">    server localhost:8082   max_fails=3 fail_timeout=20s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　在该例子中，weight 参数用于指定轮询几率，weight的默认值为1,；weight的数值与访问比率成正比，比如 8080 端口所在的 tomcat 被访问的几率为其他服务器的两倍。</p>
+<p>　　注意：</p>
+<ul>
+<li>权重越高分配到需要处理的请求越多。</li>
+<li>此策略可以与 least_conn 和 ip_hash 结合使用。</li>
+<li>此策略比较适合服务器的硬件配置差别比较大的情况。</li>
+</ul>
+<h3 id="ip-hash"><a href="#ip-hash" class="headerlink" title="ip_hash"></a>ip_hash</h3><p>　　指定负载均衡器按照基于客户端 IP 的分配方式，这个方法确保了相同的客户端的请求一直发送到相同的服务器，以保证 session 会话。这样每个访客都固定访问一个后端服务器，可以解决 session 不能跨服务器的问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#动态服务器组</span><br><span class="line">    upstream mogonserver &#123;</span><br><span class="line">        ip_hash;    #保证每个访客固定访问一个后端服务器</span><br><span class="line">        server localhost:8080   weight=2;</span><br><span class="line">        server localhost:8081;</span><br><span class="line">        server localhost:8082   max_fails=3 fail_timeout=20s;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　注意：</p>
+<ul>
+<li>在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</li>
+<li>ip_hash 不能与 backup 同时使用。</li>
+<li>此策略适合有状态服务，比如 session。</li>
+<li>当有服务器需要剔除，必须手动 down 掉。</li>
+</ul>
+<h3 id="least-conn"><a href="#least-conn" class="headerlink" title="least_conn"></a>least_conn</h3><p>　　把请求转发给连接数较少的后端服务器。轮询算法是把请求平均的转发给各个后端，使它们的负载大致相同；但是，有些请求占用的时间很长，会导致其所在的后端负载较高。这种情况下，least_conn这种方式就可以达到更好的负载均衡效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream mogonserver &#123;</span><br><span class="line">    least_conn;    #把请求转发给连接数较少的后端服务器</span><br><span class="line">    server localhost:8080   weight=2;</span><br><span class="line">    server localhost:8081 backup;</span><br><span class="line">    server localhost:8082   max_fails=3 fail_timeout=20s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　注意：</p>
+<ul>
+<li>此负载均衡策略适合请求处理时间长短不一造成服务器过载的情况。</li>
+</ul>
+<h3 id="第三方策略"><a href="#第三方策略" class="headerlink" title="第三方策略"></a>第三方策略</h3><p>第三方的负载均衡策略的实现需要安装第三方插件。</p>
+<h4 id="fair"><a href="#fair" class="headerlink" title="fair"></a>fair</h4><p>　　按照服务器端的响应时间来分配请求，响应时间短的优先分配。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream mogonserver &#123;</span><br><span class="line">    server localhost:8080;</span><br><span class="line">    server localhost:8081;</span><br><span class="line">    server localhost:8082;</span><br><span class="line">    fair;    #实现响应时间短的优先分配</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="url-hash"><a href="#url-hash" class="headerlink" title="url_hash"></a>url_hash</h4><p>​		按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，要配合缓存命中来使用。同一个资源多次请求，可能会到达不同的服务器上，导致不必要的多次下载，缓存命中率不高，以及一些资源时间的浪费。而使用 url_hash ，可以使得同一个 url（也就是同一个资源请求）会到达同一台服务器，一旦缓存住了资源，再此收到请求，就可以从缓存中读取。　</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream mogonserver &#123;</span><br><span class="line">    hash $request_uri;    #实现每个url定向到同一个后端服务器</span><br><span class="line">    server localhost:8080;</span><br><span class="line">    server localhost:8081;</span><br><span class="line">    server localhost:8082;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　</p>
+<h3 id="random"><a href="#random" class="headerlink" title="random"></a>random</h3><p>就如上述实例中，随机分配请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream mogonserver &#123;</span><br><span class="line">    random;</span><br><span class="line">    server localhost:8080;</span><br><span class="line">    server localhost:8081;</span><br><span class="line">    server localhost:8082;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Nginx-配置实例动静分离"><a href="#Nginx-配置实例动静分离" class="headerlink" title="Nginx 配置实例动静分离"></a><strong>Nginx 配置实例动静分离</strong></h1><h2 id="动静分离实例"><a href="#动静分离实例" class="headerlink" title="动静分离实例"></a>动静分离实例</h2><p><strong>准备工作：在 linux 服务器中，新建目录 &#x2F;mgfiles&#x2F;www  和 &#x2F;mgfiles&#x2F;images 并在其中放入 index.html 和 一个图片 index.jpg ：</strong></p>
+<p><img src="http://kluhten.com/images/assets/image-20200512090525265.png" alt="image-20200512090525265"></p>
+<p><img src="http://kluhten.com/images/assets/image-20200512090536658.png" alt="image-20200512090536658"></p>
+<ul>
+<li>修改 nginx 配置文件，在 server 中加入：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /www/ &#123;</span><br><span class="line">	root   /mgfiles/;</span><br><span class="line">	index	index.html	#如果 url 输入到 /www/ 时，默认显示的页面</span><br><span class="line">&#125;</span><br><span class="line">location /images/ &#123;</span><br><span class="line">	root   /mgfiles/;</span><br><span class="line">	autoindex on;	#如果 url 输入到 /images/ 时，是否显示该文件夹下的目录</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重启 nginx 服务</li>
+<li>浏览器中输入：<a target="_blank" rel="noopener" href="http://www.local-nginx.com/www/">http://www.local-nginx.com/www/</a></li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200512092545864.png" alt="image-20200512092545864"></p>
+<ul>
+<li>浏览器中输入：<a target="_blank" rel="noopener" href="http://www.local-nginx.com/images/">http://www.local-nginx.com/images/</a></li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200512092626156.png" alt="image-20200512092626156"></p>
+<ul>
+<li>浏览器中输入：<a target="_blank" rel="noopener" href="http://www.local-nginx.com/images/index.jpg">http://www.local-nginx.com/images/index.jpg</a></li>
+</ul>
+<p><img src="http://kluhten.com/images/assets/image-20200512092651741.png" alt="image-20200512092651741"></p>
+<hr>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HttpAbout/">HttpAbout</a></div><div class="post-share"><div class="social-share" data-image="http://kluhten.com/images/common/common-0019.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="http://kluhten.com/images/common/wechat.webp" target="_blank"><img class="post-qr-code-img" src="http://kluhten.com/images/common/wechat.webp" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/11/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" title="正向代理与反向代理"><img class="cover" src="http://kluhten.com/images/common/common-0021.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">正向代理与反向代理</div></div><div class="info-2"><div class="info-item-1"> 正向代理​		正向代理其实相当于请求的中继，比如说，如果某个网站国内无法访问，也就是被墙了，我可以选择两种方式，一个是配置代理服务器，第二种就是VPN，其实两种技术原理差不太多，如果说我自己访问不到这个网站，而这时可以通过一台可以访问到这个网站的服务器，也就是代理服务器，来进行访问，这台代理服务器，分析我们请求的信息，然后去对应的要去的网站上将内容取回来发给我，这样我就能读到想要访问的网站上的内容了，通过一下图片，可以很清晰的看出其原理：   反向代理​		反向代理比正向代理更加透明，客户端并不知道访问的是代理服务器，当客户端请求一个网址的时候，会经过反向代理服务器，而这台反向代理服务器，会根据客户端的请求，将请求转发到内网服务器中，内网服务器处理请求并返回结果到反向代理服务器上，通过反向代理服务器，将结果最终返回到客户端，详情如图：  简单来说，正向代理代理的是客户端，而反向代理代理的是服务器  </div></div></div></a><a class="pagination-related" href="/2025/11/11/Java%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/" title="Java面试宝典"><img class="cover" src="http://kluhten.com/images/common/common-0020.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java面试宝典</div></div><div class="info-2"><div class="info-item-1"> equals()方法与&#x3D;&#x3D;的区别在Object类中的equals()方法： 123public boolean equals(Object obj) &#123;    return (this == obj);&#125;    很明显的看出他就是用&#x3D;&#x3D;来比较对象所占空间的地址，而我们所说的&#x3D;&#x3D;是比较地址，equals()是比较值，这种说发在严格意义上讲是不对的，equals()比较值，是基于很多类根据自己的一些需要来重写Object中的equals()方法，例如String中的equals()： 123456789101112131415161718192021public boolean equals(Object anObject) &#123;    if (this == anObject) &#123;        return true;    &#125;    if (anObject instanceof String) &#123;        String anotherString = ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/11/11/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" title="正向代理与反向代理"><img class="cover" src="http://kluhten.com/images/common/common-0021.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-11</div><div class="info-item-2">正向代理与反向代理</div></div><div class="info-2"><div class="info-item-1"> 正向代理​		正向代理其实相当于请求的中继，比如说，如果某个网站国内无法访问，也就是被墙了，我可以选择两种方式，一个是配置代理服务器，第二种就是VPN，其实两种技术原理差不太多，如果说我自己访问不到这个网站，而这时可以通过一台可以访问到这个网站的服务器，也就是代理服务器，来进行访问，这台代理服务器，分析我们请求的信息，然后去对应的要去的网站上将内容取回来发给我，这样我就能读到想要访问的网站上的内容了，通过一下图片，可以很清晰的看出其原理：   反向代理​		反向代理比正向代理更加透明，客户端并不知道访问的是代理服务器，当客户端请求一个网址的时候，会经过反向代理服务器，而这台反向代理服务器，会根据客户端的请求，将请求转发到内网服务器中，内网服务器处理请求并返回结果到反向代理服务器上，通过反向代理服务器，将结果最终返回到客户端，详情如图：  简单来说，正向代理代理的是客户端，而反向代理代理的是服务器  </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="http://kluhten.com/images/common/avatar-img.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">邪不压郑</div><div class="author-info-description">行到水穷处 坐看云起时</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kluhten" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mahonecia@live.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的网站建成啦，欢迎光临~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Nginx 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">Nginx 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx-%E4%BD%9C%E4%B8%BA-web-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">Nginx 作为 web 服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">正向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">1.5.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">1.6.</span> <span class="toc-text">动静分离</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">Nginx 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDnginx"><span class="toc-number">2.1.</span> <span class="toc-text">下载nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nginx%E4%BE%9D%E8%B5%96"><span class="toc-number">2.2.</span> <span class="toc-text">安装nginx依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%90%AF%E5%8A%A8"><span class="toc-number">2.3.</span> <span class="toc-text">测试启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.4.</span> <span class="toc-text">设置防火墙开放端口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">Nginx 常用的命令和配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">配置文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">Nginx 配置实例反向代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%AE%9E%E4%BE%8B%E4%B8%80"><span class="toc-number">4.1.</span> <span class="toc-text">反向代理实例一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%AE%9E%E4%BE%8B%E4%BA%8C"><span class="toc-number">4.2.</span> <span class="toc-text">反向代理实例二</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">5.</span> <span class="toc-text">Nginx 配置实例负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">负载均衡实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="toc-number">5.2.</span> <span class="toc-text">负载均衡策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AE%E8%AF%A2"><span class="toc-number">5.2.1.</span> <span class="toc-text">轮询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#weight"><span class="toc-number">5.2.2.</span> <span class="toc-text">weight</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ip-hash"><span class="toc-number">5.2.3.</span> <span class="toc-text">ip_hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#least-conn"><span class="toc-number">5.2.4.</span> <span class="toc-text">least_conn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E7%AD%96%E7%95%A5"><span class="toc-number">5.2.5.</span> <span class="toc-text">第三方策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fair"><span class="toc-number">5.2.5.1.</span> <span class="toc-text">fair</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#url-hash"><span class="toc-number">5.2.5.2.</span> <span class="toc-text">url_hash</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#random"><span class="toc-number">5.2.6.</span> <span class="toc-text">random</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">6.</span> <span class="toc-text">Nginx 配置实例动静分离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.1.</span> <span class="toc-text">动静分离实例</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/03/%E4%BF%AE%E6%94%B9github%E4%B8%BB%E9%A1%B5/" title="修改github主页"><img src="http://kluhten.com/images/common/common-0006.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修改github主页"/></a><div class="content"><a class="title" href="/2025/12/03/%E4%BF%AE%E6%94%B9github%E4%B8%BB%E9%A1%B5/" title="修改github主页">修改github主页</a><time datetime="2025-12-03T07:51:29.901Z" title="发表于 2025-12-03 15:51:29">2025-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" title="Git命令大全"><img src="http://kluhten.com/images/common/common-0005.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git命令大全"/></a><div class="content"><a class="title" href="/2025/11/14/Git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" title="Git命令大全">Git命令大全</a><time datetime="2025-11-14T03:50:36.900Z" title="发表于 2025-11-14 11:50:36">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/12/Devtools/" title="Devtools"><img src="http://kluhten.com/images/common/common-0025.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Devtools"/></a><div class="content"><a class="title" href="/2025/11/12/Devtools/" title="Devtools">Devtools</a><time datetime="2025-11-12T08:57:42.231Z" title="发表于 2025-11-12 16:57:42">2025-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/%E6%A8%A1%E6%9D%BF/" title="模板"><img src="http://kluhten.com/images/common/common-0018.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模板"/></a><div class="content"><a class="title" href="/2025/11/11/%E6%A8%A1%E6%9D%BF/" title="模板">模板</a><time datetime="2025-11-11T08:23:55.145Z" title="发表于 2025-11-11 16:23:55">2025-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/11/PicGo&amp;%E8%85%BE%E8%AE%AF%E4%BA%91&amp;Typora-%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" title="PicGo&amp;腾讯云&amp;Typora-搭建私有图床"><img src="http://kluhten.com/images/common/common-0020.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PicGo&amp;腾讯云&amp;Typora-搭建私有图床"/></a><div class="content"><a class="title" href="/2025/11/11/PicGo&amp;%E8%85%BE%E8%AE%AF%E4%BA%91&amp;Typora-%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" title="PicGo&amp;腾讯云&amp;Typora-搭建私有图床">PicGo&amp;腾讯云&amp;Typora-搭建私有图床</a><time datetime="2025-11-11T08:16:53.580Z" title="发表于 2025-11-11 16:16:53">2025-11-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(http://kluhten.com/images/common/common-0019.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 邪不压郑</span></div><div class="footer_custom_text">备案号：黑ICP备2025046207号-1</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'http://blog.kluhten.com/twikoo/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'http://blog.kluhten.com/twikoo/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="17401878335" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" listfolded="false" data-autoplay="true"> </div><style>#article-container.post-content h1:before, h2:before, h3:before, h4:before, h5:before, h6:before { -webkit-animation: avatar_turn_around 1s linear infinite; -moz-animation: avatar_turn_around 1s linear infinite; -o-animation: avatar_turn_around 1s linear infinite; -ms-animation: avatar_turn_around 1s linear infinite; animation: avatar_turn_around 1s linear infinite; }</style><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="/"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.2"></script></div></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('container');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '700ms');
+    arr[i].setAttribute('data-wow-delay', '0ms');
+    arr[i].setAttribute('data-wow-offset', '0');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
